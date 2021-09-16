@@ -1,5 +1,7 @@
 # Front Door Standard/Premium (Preview) with App Service origin and private endpoint
 
+> (originally from: https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.network/front-door-premium-app-service-private-link)
+
 This template deploys a Front Door Standard/Premium (Preview) with an App Service origin, using a private endpoint to access the App Service application.
 
 ## Sample overview and deployed resources
