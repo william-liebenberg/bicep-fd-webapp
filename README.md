@@ -47,3 +47,40 @@ You can also attempt to access the App Service hostname directly. The hostname i
 - Front Door Standard/Premium is currently in preview.
 - When using Private Link origins with Front Door Premium during the preview period, [there is a limited set of regions available for use](https://docs.microsoft.com/en-us/azure/frontdoor/standard-premium/concept-private-link#limitations). These have been enforced in the template. Once the service is generally available this restriction will likely be removed.
 - Front Door Standard/Premium is not currently available in the US Government regions.
+
+
+## Results
+
+![Deploying the Bicep](images/2021-09-20-09-47-45.png)
+
+![Select connection to approve](images/2021-09-20-09-35-29.png)
+
+![Approve connection](images/2021-09-20-09-44-17.png)
+> Oops I forgot to add a description :)
+
+![Connection Approved](images/2021-09-20-09-51-31.png)
+
+Go to Private Link Center | Active connections:
+
+![Active Connections](images/2021-09-20-09-52-10.png)
+
+Go to the AppService link (https://azfdprivlink-dev-meyaxwasizpp6.azurewebsites.net/) -> You will get Error 403 Forbidden
+
+![AppService link forbidden](images/2021-09-20-09-54-00.png)
+
+App Service -> Networking tab -> Private Endpoitns is **On**:
+
+![Private Endpoints is On](images/2021-09-20-09-55-17.png)
+
+Goto Frontdoor in your Resource Group
+![](images/2021-09-20-09-58-58.png)
+
+Goto FrontDoor -> Endpoint Manager -> Copy Link (https://azfdprivlink-dev-meyaxwasizpp6.z01.azurefd.net):
+
+![Copy link for app behind frontdoor](images/2021-09-20-10-10-41.png)
+
+Open Link:
+
+![](images/2021-09-20-10-08-54.png)
+
+BOOM!
