@@ -21,6 +21,15 @@ param appServicePlanCapacity int = 1
 @description('The name of the Front Door endpoint to create. This must be globally unique.')
 param frontDoorEndpointName string = toLower('${projectName}-${environmentName}-${uniqueString(resourceGroup().id)}')
 
+module storage 'modules/storage.bicep' = {
+  name: 'storage'
+  params: {
+    location: location
+    projectName: projectName
+    environmentName: environmentName
+  }
+}
+
 module webapp 'modules/webapp.bicep' = {
   name: 'appService'
   params: {
@@ -30,14 +39,18 @@ module webapp 'modules/webapp.bicep' = {
     appName: appName
     appServicePlanSkuName: appServicePlanSkuName
     appServicePlanCapacity: appServicePlanCapacity
+    packagesStorageAccountId: storage.outputs.storageAccountId
+    packagesStorageAccountName: storage.outputs.storageAccountName
+    // packagesBlobContainerId: storage.outputs.webappContainerId
+    // packagesBlobContainerName: storage.outputs.webappContainerName
   }
 }
 
 module frontDoor 'modules/frontdoor.bicep' = {
   name: 'front-door'
   params: {
-    projectName: projectName
-    environmentName: environmentName
+    // projectName: projectName
+    // environmentName: environmentName
     skuName: 'Premium_AzureFrontDoor' // Private Link origins require the premium SKU.
     endpointName: frontDoorEndpointName
     originHostName: webapp.outputs.hostname
@@ -49,3 +62,5 @@ module frontDoor 'modules/frontdoor.bicep' = {
 
 output webappHostName string = webapp.outputs.hostname
 output frontDoorEndpointHostName string = frontDoor.outputs.frontDoorEndpointHostName
+output webappContainerId string = storage.outputs.webappContainerId
+output webappContainerName string = storage.outputs.webappContainerName

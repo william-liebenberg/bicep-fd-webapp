@@ -1,5 +1,5 @@
-param projectName string = 'AzApp'
-param environmentName string = 'dev'
+// param projectName string = 'AzApp'
+// param environmentName string = 'dev'
 
 @description('The host name that should be used when connecting to the origin.')
 param originHostName string
@@ -165,7 +165,8 @@ resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2020-09-01' = {
       ]
       isCompressionEnabled: true
     }
-    queryStringCachingBehavior: 'IgnoreQueryString'
+
+    queryStringCachingBehavior: 'NotSet'
     forwardingProtocol: originForwardingProtocol
     linkToDefaultDomain: 'Enabled'
     httpsRedirect: 'Enabled'
